@@ -1,9 +1,9 @@
 #!/bin/sh
 # ============================================================
-# CPE route/health monitor (2026-09-03 kevis)
+# CPE route/health monitor (2026-09-03 助手)
 # Watches the dual-CPE setup: eth0=wan/CPE1 (192.168.3.x, gw <LAN_IP>)
 #                              eth1=wancpe/CPE2 (192.168.5.x, gw <LAN_IP>)
-# Logs changes only (no auto-fix; route changes need 先生's decision).
+# Logs changes only (no auto-fix; route changes need the maintainer's decision).
 # State hash in /tmp so reboots start fresh without false alarms.
 # ============================================================
 

@@ -28,7 +28,7 @@ CATEGORIES = {
 }
 
 # Category priority when hit counts tie (higher = more important)
-# 2026-09-08 先生拍板新增「规则约束」类（kevis 行为约束双写 AGENTS.md 常驻层），优先级最高
+# 2026-09-08 维护者决定新增「规则约束」类（助手行为约束双写 AGENTS.md 常驻层），优先级最高
 CATEGORY_PRIORITY = ["规则约束", "决策", "产出", "发现", "纠正", "工具", "待办", "偏好"]
 
 # Minimum content length for user turns (skip short prompts like "继续完成")
@@ -294,7 +294,7 @@ def dedup_lines_by_seq(existing_text, lines):
 
 
 def replace_lines_by_seq(existing_text, lines):
-    """语义版优先（先生拍板 2026-09-03）：judge 模型语义判定 keep 时覆盖同 key 的旧单 seq 行。
+    """语义版优先（维护者决定 2026-09-03）：judge 模型语义判定 keep 时覆盖同 key 的旧单 seq 行。
 
     - 单 seq 行（`- 12345 | ...`）：语义版覆盖规则版；内容完全相同 -> skip（幂等）
     - 范围行（`- 12345-12390 | ...`）：不覆盖（保留 daemon 主题合并的内容），视为已占用 -> skip
@@ -356,7 +356,7 @@ def replace_lines_by_seq(existing_text, lines):
 def clean_mojibake_lines(memory_dir, today_only=False):
     """扫 memory/distill/*.md，删除含 U+FFFD 的**单 seq 行**。
 
-    2026-09-10 先生拍板政策：**发现乱码直接清理，不浪费 tokens 去修复**——
+    2026-09-10 维护者决定政策：**发现乱码直接清理，不浪费 tokens 去修复**——
     智脑是慢慢积攒的知识库，少一两条条目无所谓；重跑修复成本高、收益低。
     范围行与正常行永不触碰；手写笔记（memory/YYYY-MM-DD/*.md）不在范围内。
 

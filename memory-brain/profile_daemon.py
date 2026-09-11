@@ -395,7 +395,7 @@ def update_profile(text, seq, state):
     err_cls, err_cnt = read_err_state()
     current = state_to_prompt(state)
     prompt = PROFILE_UPDATE_PROMPT.format(
-        target_user="ruby（先生）",
+        target_user="<USER>",
         current_profile=current,
         conversation=f"[最近对话片段] {text}",
     )

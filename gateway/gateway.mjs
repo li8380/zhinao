@@ -232,7 +232,7 @@ const KW_CODING = [
   'sql', '查询', '数据库', 'excel', 'csv', '表格', '爬虫', '正则', 'shell',
   '命令行', 'git', '部署', 'docker', 'api', 'python', 'javascript', '前端', '后端', '自动化',
   '测试', '调试', '优化性能', '日志分析', '写个函数', '代码审查', 'lint',
-  // 数据分析（先生拍板：数据类走 coding）
+  // 数据分析（维护者决定：数据类走 coding）
   '数据', '报表', '统计', '对账', '透视', '销量', '销售数据', '趋势', '归因', '漏斗',
   '留存', 'dau', 'uv', 'gmv', '转化率', '活跃', '订单', '补贴', '营收', '毛利',
 ];
@@ -278,7 +278,7 @@ function decideRoute(body) {
   const text = lastUserText(body).trim();
   log('INFO', `orchestrator decide: text=${text.slice(0, 60)}`);
 
-  // 1. 编程/数据类（先生拍板：SQL/代码/报错/脚本/数据分析 → coding）
+  // 1. 编程/数据类（维护者决定：SQL/代码/报错/脚本/数据分析 → coding）
   if (hasKw(text, KW_CODING)) return 'coding';
 
   // 2. 方案/总结类

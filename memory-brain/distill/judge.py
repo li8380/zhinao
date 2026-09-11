@@ -51,7 +51,7 @@ CONFIRM_ONLY = re.compile(r"^[好的可以行嗯收到没问题好吧okOK好继�
 FACT_HINTS = ["病", "痛", "症状", "诊断", "医生", "药", "血压", "血糖", "睡",
               "焦虑", "抑郁", "过敏", "喜欢", "讨厌", "习惯", "决定", "定了",
               "买了", "装了", "删了", "配置", "方案", "结论", "修", "换"]
-# 规则约束感词（2026-09-08 先生拍板：kevis 行为约束信号，含则短句也进候选）
+# 规则约束感词（2026-09-08 维护者决定：助手行为约束信号，含则短句也进候选）
 RULE_HINTS = ["只负责", "只管", "不该你", "越界", "归你管", "别动", "红线", "铁律",
               "只闲聊", "只指路", "先问", "准则", "纪律", "违规", "角色边界",
               "分区职责", "必须先", "不亲自动手", "边界"]
@@ -107,7 +107,7 @@ JUDGE_PROMPT = (
     '"category": "规则约束|偏好|决策|健康|状态|事实|待办|其他", "summary": "一句话提炼（≤40字）"}}\n'
     "判定规则：纯寒暄、瞬时变量（如天气）、无信息量 → keep=false；"
     "涉及用户自身状态/健康/偏好/决策/事实 → keep=true；"
-    "涉及对助手（kevis）的行为边界/角色约束/流程规则/分区职责"
+    "涉及对助手的行为边界/角色约束/流程规则/分区职责"
     "（如“你只管X”“指挥室只闲聊指路”“以后先问再动”“这个归Y区”）"
     "→ keep=true 且 category=规则约束，summary 必须完整保留规则本体；"
     "信息不足无法提炼 → keep=false。\n"
@@ -270,7 +270,7 @@ def write_entry(seq, categories, summary, overwrite=False):
     """Append entry line to today's distill diary.
 
     overwrite=False：按 seq 去重（先写者胜，daemon/规则兜底用）
-    overwrite=True ：语义版优先（先生拍板）——模型语义判定 keep 时覆盖同 seq 旧单行
+    overwrite=True ：语义版优先（维护者决定）——模型语义判定 keep 时覆盖同 seq 旧单行
     Returns (added, skipped, replaced, path)."""
     if not categories or not summary:
         return 0, 0, 0, None
@@ -301,7 +301,7 @@ def write_entry(seq, categories, summary, overwrite=False):
     return added, skipped, replaced, path
 
 
-# ---------- ⑤ 规则约束类双写（2026-09-08 先生拍板） ----------
+# ---------- ⑤ 规则约束类双写（2026-09-08 维护者决定） ----------
 
 AGENTS_FILE = os.path.join(BASE, "AGENTS.md")
 RULE_SECTION_TITLE = "## 🧠 智脑自动固化规则（judge 双写，常驻层）"
@@ -423,7 +423,7 @@ def judge_turn(text, kind="user"):
 def main():
     ap = argparse.ArgumentParser(description="在线语义鉴定器 (Memory Hub ①)")
     ap.add_argument("--text", required=True, help="用户陈述文本")
-    ap.add_argument("--seq", type=int, default=None, help="对应 seq（kevis 集成时传当前轮）")
+    ap.add_argument("--seq", type=int, default=None, help="对应 seq（助手集成时传当前轮）")
     ap.add_argument("--kind", default="user", choices=["user", "tool_result", "context_msg"])
     ap.add_argument("--dry-run", action="store_true", help="只判定不写入")
     ap.add_argument("--memory-dir", default=None, help="蒸馏输出目录（默认 memory/distill；测试用）")
@@ -453,7 +453,7 @@ def main():
                           "mode": result["mode"], "dry_run": True}, ensure_ascii=False))
         return
 
-    # 语义版优先（先生拍板）：仅模型判定（mode=model*）时覆盖；规则兜底保持先写者胜
+    # 语义版优先（维护者决定）：仅模型判定（mode=model*）时覆盖；规则兜底保持先写者胜
     overwrite_ok = result["mode"].startswith("model")
     added, skipped, replaced, path, rule_added = persist(
         seq, result["category"], result["summary"],

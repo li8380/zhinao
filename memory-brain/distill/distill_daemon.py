@@ -56,8 +56,8 @@ def log(msg):
         pass
 
 
-# --- 三遍法则守护 (2026-09-03 先生拍板) ---
-# 同类错误连续 3 次 -> 自锁 BLOCKED，写 FAILURE_REPORT 供先生判断；
+# --- 三遍法则守护 (2026-09-03 维护者决定) ---
+# 同类错误连续 3 次 -> 自锁 BLOCKED，写 FAILURE_REPORT 供维护者判断；
 # 不退出进程（看门狗探测仍见 alive），进入慢轮询，错误消失自动解除。
 MAX_CONSEC_FAILURES = 3
 BLOCKED_POLL = 600          # seconds between recovery probes while blocked
@@ -78,7 +78,7 @@ def write_failure_report(fail_history):
         lines.append(f"- `{ts}` [{cls}] {msg}\n")
     lines += [
         "\n## 建议动作\n",
-        "- 先生查看上方错误明细，判断根因（DB 锁/损坏、游标问题、磁盘满等）\n",
+        "- 维护者查看上方错误明细，判断根因（DB 锁/损坏、游标问题、磁盘满等）\n",
         "- 处理后 daemon 将自动恢复（每 10 分钟轻量探测，错因消失即解除自锁）\n",
         "- 想立即重新尝试：删除 `scripts\\.distill_blocked` 后重启 DistillDaemon 计划任务\n",
     ]
@@ -224,7 +224,7 @@ def main():
             cursor = cur_max
             first_pass = False
 
-            # 乱码自清（2026-09-10 先生拍板：发现乱码直接删，不花 tokens 修复）
+            # 乱码自清（2026-09-10 维护者决定：发现乱码直接删，不花 tokens 修复）
             try:
                 rm, tf = distill_db.clean_mojibake_lines(MEMORY_DIR)
                 if rm:
@@ -238,7 +238,7 @@ def main():
             fail_history = []
 
         except Exception as e:
-            # 三遍法则：同类错误归组计数，连续 3 次 -> 自锁等先生判断
+            # 三遍法则：同类错误归组计数，连续 3 次 -> 自锁等维护者判断
             cls = type(e).__name__
             if cls == fail_class:
                 fail_count += 1

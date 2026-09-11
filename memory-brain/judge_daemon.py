@@ -79,7 +79,7 @@ def write_failure_report(fail_history):
         lines.append(f"- `{ts}` [{cls}] {msg}\n")
     lines += [
         "\n## 建议动作\n",
-        "- 先生查看上方错误明细，判断根因（DB 锁/损坏、游标问题、磁盘满等）\n",
+        "- 维护者查看上方错误明细，判断根因（DB 锁/损坏、游标问题、磁盘满等）\n",
         "- 处理后 daemon 将自动恢复（每 10 分钟轻量探测，错因消失即解除自锁）\n",
         "- 想立即重新尝试：删除 `scripts\\.judge_blocked` 后重启 JudgeDaemon 计划任务\n",
     ]
@@ -184,7 +184,7 @@ def run_cycle(cursor):
         n += 1
     if n:
         log(f"cycle: judged {n} new turn(s), cursor -> {cursor}")
-    # 乱码自清（2026-09-10 先生拍板：发现乱码直接删，不花 tokens 修复）
+    # 乱码自清（2026-09-10 维护者决定：发现乱码直接删，不花 tokens 修复）
     # 每轮都跑（不只 n>0）：兜底覆盖任何来源的残留乱码；7 个小文件读取开销可忽略
     try:
         rm, tf = distill_db.clean_mojibake_lines(judge.MEMORY_DIR)
