@@ -1,0 +1,20 @@
+# runtime configuration — never commit real keys
+config.json
+.env
+*.env
+
+# runtime state
+route_overrides.json
+*.log
+watch/.
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+
+# editors / os
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

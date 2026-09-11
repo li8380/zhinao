@@ -1,0 +1,31 @@
+{
+  "actions": [
+    {
+      "tool_name": "recall_history",
+      "arguments": {
+        "op": "expand",
+        "lo": "${args.lo}",
+        "hi": "${args.hi}"
+      }
+    },
+    {
+      "tool_name": "write_file",
+      "arguments": {
+        "file_path": "${args.work_dir}/turns_raw.txt",
+        "content": "${steps.0.text}"
+      }
+    },
+    {
+      "tool_name": "execute_shell_command",
+      "arguments": {
+        "command": "python3 ${args.skill_dir}/scripts/distill.py ${args.work_dir}/turns_raw.txt ${args.work_dir}/distilled.md"
+      }
+    },
+    {
+      "tool_name": "read_file",
+      "arguments": {
+        "file_path": "${args.work_dir}/distilled.md"
+      }
+    }
+  ]
+}

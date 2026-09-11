@@ -1,0 +1,305 @@
+{
+  "port": 4100,
+  "gateway_key": "<GATEWAY_KEY>",
+  "cooldown_seconds": 300,
+  "timeout_seconds": 120,
+  "log_file": "/mnt/sda3/logs/gateway.log",
+  "channels": [
+    {
+      "id": "commandcode",
+      "name": "CommandCode GOAT (主力)",
+      "base_url": "https://api.commandcode.ai/provider/v1",
+      "api_key": "<API_KEY>",
+      "custom_headers": {},
+      "models": [
+        "deepseek/deepseek-v4-flash",
+        "deepseek/deepseek-v4-flash-fast",
+        "zai-org/GLM-5.3",
+        "xiaomi/mimo-v2.5",
+        "meituan/LongCat-2.0:free",
+        "inclusionai/ling-3.0-flash-sante:free"
+      ]
+    },
+    {
+      "id": "siliconflow",
+      "name": "硅基流动 (兜底1)",
+      "base_url": "https://api.siliconflow.cn/v1",
+      "api_key": "<API_KEY>",
+      "custom_headers": {},
+      "models": [
+        "deepseek-ai/DeepSeek-V3",
+        "deepseek-ai/DeepSeek-R1",
+        "Qwen/Qwen3-32B",
+        "Qwen/Qwen3.5-4B",
+        "deepseek-ai/DeepSeek-V4-Flash"
+      ]
+    },
+    {
+      "id": "agnes",
+      "name": "Agnes (兜底2·免费)",
+      "base_url": "https://apihub.agnes-ai.com/v1",
+      "api_key": "<API_KEY>",
+      "custom_headers": {},
+      "models": [
+        "agnes-2.0-flash",
+        "agnes-2.5-flash"
+      ]
+    },
+    {
+      "id": "sensenova",
+      "name": "讯飞星辰 (兜底3)",
+      "base_url": "https://token.sensenova.cn/v1",
+      "api_key": "<API_KEY>",
+      "custom_headers": {},
+      "models": [
+        "deepseek-v4-flash",
+        "spark-x2.5"
+      ]
+    },
+    {
+      "id": "tokenrhythm",
+      "name": "TokenRhythm (兜底4)",
+      "base_url": "https://tokenrhythm.studio/v1",
+      "api_key": "<API_KEY>",
+      "custom_headers": {},
+      "models": [
+        "deepseek-v4-flash",
+        "deepseek-v4-pro"
+      ]
+    },
+    {
+      "id": "volcengine",
+      "name": "火山方舟 (备用)",
+      "base_url": "https://ark.cn-beijing.volces.com/api/v3",
+      "api_key": "<API_KEY>",
+      "custom_headers": {},
+      "models": [
+        "doubao-seed-1.6"
+      ]
+    },
+    {
+      "id": "meituan",
+      "name": "LongCat(meituan)",
+      "base_url": "https://api.longcat.chat/openai/v1",
+      "api_key": "<API_KEY>",
+      "custom_headers": {},
+      "models": [
+        "LongCat-2.0"
+      ]
+    },
+    {
+      "id": "nvidia",
+      "name": "NVIDIA NIM (免费40RPM)",
+      "base_url": "https://integrate.api.nvidia.com/v1",
+      "api_key": "<API_KEY>",
+      "custom_headers": {},
+      "models": [
+        "nvidia/nemotron-3-super-120b-a12b",
+        "nvidia/nemotron-3-ultra-550b-a55b",
+        "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+        "deepseek-ai/deepseek-v4-flash-0731",
+        "moonshotai/kimi-k2.6"
+      ]
+    },
+    {
+      "id": "modelscope",
+      "name": "ModelScope 魔搭",
+      "base_url": "https://api-inference.modelscope.cn/v1",
+      "api_key": "<API_KEY>",
+      "custom_headers": {},
+      "models": [
+        "Qwen/Qwen3.5-122B-A10B",
+        "ZhipuAI/GLM-5",
+        "stepfun-ai/Step-3.7-Flash",
+        "Qwen/Qwen3-235B-A22B-Thinking-2507",
+        "deepseek-ai/DeepSeek-V4-Flash-0731"
+      ]
+    },
+    {
+      "id": "kimi",
+      "name": "Kimi (moonshot)",
+      "base_url": "https://api.moonshot.cn/v1",
+      "api_key": "<API_KEY>",
+      "custom_headers": {},
+      "models": [
+        "kimi-k3",
+        "kimi-k2.7-code",
+        "kimi-k2.6",
+        "kimi-k2.5"
+      ]
+    },
+    {
+      "id": "openrouter",
+      "name": "OpenRouter (仅free)",
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key": "<API_KEY>",
+      "custom_headers": {},
+      "models": [
+        "nex-agi/nex-n2.5-pro:free",
+        "nex-agi/nex-n2.5-mini:free",
+        "nvidia/nemotron-3-super-120b-a12b:free"
+      ]
+    }
+  ],
+  "routes": {
+    "brain": [
+      {
+        "id": "commandcode",
+        "model": "deepseek/deepseek-v4-flash-fast"
+      },
+      {
+        "id": "siliconflow",
+        "model": "deepseek-ai/DeepSeek-V4-Flash"
+      },
+      {
+        "id": "sensenova",
+        "model": "deepseek-v4-flash"
+      },
+      {
+        "id": "nvidia",
+        "model": "nvidia/nemotron-3-super-120b-a12b"
+      },
+      {
+        "id": "openrouter",
+        "model": "nex-agi/nex-n2.5-pro:free"
+      }
+    ],
+    "coding": [
+      {
+        "id": "tokenrhythm",
+        "model": "deepseek-v4-flash"
+      },
+      {
+        "id": "commandcode",
+        "model": "deepseek/deepseek-v4-flash-fast"
+      },
+      {
+        "id": "siliconflow",
+        "model": "deepseek-ai/DeepSeek-V4-Flash"
+      },
+      {
+        "id": "kimi",
+        "model": "kimi-k2.7-code"
+      },
+      {
+        "id": "nvidia",
+        "model": "nvidia/nemotron-3-super-120b-a12b"
+      }
+    ],
+    "simple": [
+      {
+        "id": "meituan",
+        "model": "LongCat-2.0"
+      },
+      {
+        "id": "commandcode",
+        "model": "meituan/LongCat-2.0:free"
+      },
+      {
+        "id": "agnes",
+        "model": "agnes-2.0-flash"
+      },
+      {
+        "id": "nvidia",
+        "model": "nvidia/nemotron-3-super-120b-a12b"
+      }
+    ],
+    "orchestrator": [],
+    "main": [
+      {
+        "id": "commandcode",
+        "model": "deepseek/deepseek-v4-flash-fast"
+      },
+      {
+        "id": "sensenova",
+        "model": "deepseek-v4-flash"
+      },
+      {
+        "id": "tokenrhythm",
+        "model": "deepseek-v4-flash"
+      },
+      {
+        "id": "agnes",
+        "model": "agnes-2.0-flash"
+      },
+      {
+        "id": "nvidia",
+        "model": "nvidia/nemotron-3-super-120b-a12b"
+      }
+    ],
+    "chat": [
+      {
+        "id": "commandcode",
+        "model": "zai-org/GLM-5.3"
+      },
+      {
+        "id": "sensenova",
+        "model": "sensenova-6.8-flash-lite"
+      },
+      {
+        "id": "agnes",
+        "model": "agnes-2.0-flash"
+      },
+      {
+        "id": "openrouter",
+        "model": "nex-agi/nex-n2.5-mini:free"
+      }
+    ],
+    "cheap": [
+      {
+        "id": "openrouter",
+        "model": "nex-agi/nex-n2.5-pro:free"
+      },
+      {
+        "id": "openrouter",
+        "model": "nex-agi/nex-n2.5-mini:free"
+      },
+      {
+        "id": "openrouter",
+        "model": "nvidia/nemotron-3-super-120b-a12b:free"
+      },
+      {
+        "id": "modelscope",
+        "model": "stepfun-ai/Step-3.7-Flash"
+      },
+      {
+        "id": "commandcode",
+        "model": "inclusionai/ling-3.0-flash-sante:free"
+      },
+      {
+        "id": "agnes",
+        "model": "agnes-2.0-flash"
+      }
+    ],
+    "epr": [
+      {
+        "id": "openrouter",
+        "model": "nex-agi/nex-n2.5-pro:free"
+      },
+      {
+        "id": "openrouter",
+        "model": "nex-agi/nex-n2.5-mini:free"
+      },
+      {
+        "id": "openrouter",
+        "model": "nvidia/nemotron-3-super-120b-a12b:free"
+      },
+      {
+        "id": "nvidia",
+        "model": "nvidia/nemotron-3-super-120b-a12b"
+      },
+      {
+        "id": "modelscope",
+        "model": "stepfun-ai/Step-3.7-Flash"
+      },
+      {
+        "id": "commandcode",
+        "model": "inclusionai/ling-3.0-flash-sante:free"
+      },
+      {
+        "id": "agnes",
+        "model": "agnes-2.0-flash"
+      }
+    ]
+  }
+}

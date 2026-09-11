@@ -1,0 +1,25 @@
+# ============================================================
+# Watchdog Platform - service registry
+# ============================================================
+# Each line: svc_name|probe_remote_cmd|relaunch_remote_cmd|cooldown_sec
+#   probe_remote_cmd   : ssh target + remote cmd; exit 0 => service alive
+#   relaunch_remote_cmd: ssh target + remote cmd to start the service
+#   cooldown_sec       : min seconds between failed relaunch tries (default 300)
+# Add a new service: append one line + create its Windows Task Scheduler
+# entry (schtasks /create) + probe/stop scripts on Windows.
+# '#' lines are comments.
+# ============================================================
+
+# --- memory-distillation daemon (service #1, 2026-09-03) ---
+# Windows: scripts/probe_distill.ps1 (probe), scripts/stop_distill.ps1 (stop)
+#          Task Scheduler: DistillDaemon (relaunch channel, survives SSH end)
+distill|<USER>@<WINDOWS_HOST_IP> powershell -NoProfile -ExecutionPolicy Bypass -File C:/Users/<USER>/.qwenpaw/workspaces/default/scripts/probe_distill.ps1|<USER>@<WINDOWS_HOST_IP> schtasks /run /tn DistillDaemon|300
+# --- semantic judge daemon (service #2, 2026-09-03) ---
+# Windows: scripts/probe_judge.ps1 (probe), scripts/stop_judge.ps1 (stop)
+#          Task Scheduler: JudgeDaemon (relaunch channel, survives SSH end)
+judge|<USER>@<WINDOWS_HOST_IP> powershell -NoProfile -ExecutionPolicy Bypass -File C:/Users/<USER>/.qwenpaw/workspaces/default/scripts/probe_judge.ps1|<USER>@<WINDOWS_HOST_IP> schtasks /run /tn JudgeDaemon|300
+
+# --- profile daemon (service #3, 2026-09-04) ---
+# Windows: scripts/probe_profile.ps1 (probe), scripts/stop_profile.ps1 (stop)
+#          Task Scheduler: ProfileDaemon (relaunch channel)
+profile|<USER>@<WINDOWS_HOST_IP> powershell -NoProfile -ExecutionPolicy Bypass -File C:/Users/<USER>/.qwenpaw/workspaces/default/scripts/probe_profile.ps1|<USER>@<WINDOWS_HOST_IP> schtasks /run /tn ProfileDaemon|300
