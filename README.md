@@ -1,3 +1,5 @@
+**English** ｜ [简体中文](README.zh-CN.md)
+
 # ZhiNao (智脑) — Self-Hosted AI Hub
 
 **ZhiNao** is a 7×24 self-hosted AI hub built around a router (ImmortalWrt/OpenWrt) plus a

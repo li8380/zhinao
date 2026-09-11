@@ -1,3 +1,5 @@
+[English](README.md) ｜ **简体中文**
+
 # 智脑（ZhiNao）— 自托管 AI 中枢
 
 **智脑** 是一套 7×24 自托管的 AI 中枢：一台软路由（ImmortalWrt/OpenWrt）当骨架，
